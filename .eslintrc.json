@@ -35,6 +35,7 @@
     "eslint-plugin-tsdoc",
     "testing-library",
     "jest-dom",
+    "react-refresh",
     "prettier"
   ],
   "rules": {
@@ -122,6 +123,15 @@
           "**/*.stories.tsx",
           "**/*.stories.mdx"
         ]
+      }
+    ],
+    "react-refresh/only-export-components": "warn",
+    "@typescript-eslint/triple-slash-reference": [
+      "error",
+      {
+        "path": "always",
+        "types": "prefer-import",
+        "lib": "always"
       }
     ]
   }
