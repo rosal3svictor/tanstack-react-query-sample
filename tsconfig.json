@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
-
+  
     /* Language and Environment */
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -10,6 +10,11 @@
     /* Modules */
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@core": ["core"],
+      "@entities/*": ["entities/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",

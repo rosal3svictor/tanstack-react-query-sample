@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./public/react-typescript-logo.png" width="80%" />
+    <img src="./public/repo-logo.png" width="80%" />
     <h1> React-TypeScript Boilerplate App </h1>
 </div>
 
@@ -32,63 +32,67 @@ starter app to kick-off their Front-End Projects using React-TypeScript.
 2. Execute `pnpm run ci` to perform the instalation of all dependencies. (Read [this reference](https://betterprogramming.pub/npm-ci-vs-npm-install-which-should-you-use-in-your-node-js-projects-51e07cb71e26) for more details)
 3. Execute `pnpm run dev`, and immediately you will see the vite server running.
 
-# Requirements for daily development workflow
+# Development Pattern
 
-The development considered to be a candidate of a new version within the project,
-should comply with the following criteria:
+<div align="center">
+    <img src="./public/development-pattern-diagram.svg" alt="Development Pattern Diagram" />
+</div>
 
-1. **Do not commit a new version if the development is not completed**. Each
-   commit is expected to be associated to a single ticket number, it means that
-   **only one commit is allowed per ticket assigned** (unless you have to perform a
-   merge with main, this will be the extra commit allowed only)
-2. **Each commit under the repo must deliver a stable version of the app**
-3. The commit must state the title of the task/subtask that was taken
-4. Add a description providing the answers to the following questions:
-   - How the development in the branch will add value to the project?
-   - Is there any remaining work to be done? Please, provide the ticket number
-     that will cover this development
+# Table Of Content
 
-### _**EXCEPTIONS:**_
+1. [What is React Query?](#what-is-react-query)
+2. [Client State vs Server State](#client-state-vs-server-state)
+3. [What problem does React Query solve?](#what-problem-does-react-query-solve)
 
-_If there's a need to merge something that wasn't initially scoped
-(unexpected bug, or behaviour) it can be done but, following criteria:_
+## What is React Query?
 
-- _The commit description should state which was the issue that popped up and
-  the temporal fix applied_
-- _It has to reference the ticket that is created to cover that bug fixing,
-  following scalability standards_
+Library that manages server state for your React app.
 
-# IMPORTANT:
+## Client State vs Server State
 
-Make usage of the command `pnpm run commit:changes` in order to make a new commit.
+ - Client State: Information relevant to the web browser session.
+    Example: User's chosen language or theme.
 
-When executed this will prompt you to define:
+ - Server State: Information stored on the server.
+    Example: Blog post data from database.
 
-1. Type of change you're commiting (a list will be shown to you)
-2. What is the scope of this change? (You can skip it, it is not necessary)
-3. A short, imperative tense description of the change (Refer to step 3 from the previous list)
-4. A longer description of the change (Refer to step 4 from the previous list)
-5. Notify if there's a breking change
-   - if yes, you'll have to provide details
-   - if no, you'll be moved to the next step
-6. Notify if this commit affect any open issues
-   - if yes, you'll have to add the issue references
-   - if no, you'll be moved to the next step
-7. The commit will be added to the git history
-8. You can push the prevously created commit to the remote repository
+## What problem does React Query solve?
 
-# References
+React Query maintains cache of server data on client. So the way it looks is:
 
-- [Principles To Perform Testing](https://testing-library.com/docs/guiding-principles)
-- [Using Testing Library jest-dom with Vitest](https://markus.oberlehner.net/blog/using-testing-library-jest-dom-with-vitest/)
-- [Common mistakes with React Testing Library](https://kentcdodds.com/blog/common-mistakes-with-react-testing-library)
+<div align="center">
+    <img src="./public/resource-one.png" alt="Resource One" />
+</div>
 
-# FAQ
+when your React Code needs data from the server, it doesn't go straight to the
+server. Instead, it asks the React Query Cache since it is the source of truth for
+the server data. And its job is to maintain the maintain the data in that cache
+based on a certain configuration.
 
-- What's the difference between the `public` and the `asset` folder?
+So, React Query manages the data and it is your job to indicate when you want to
+update the cache with new data from the server. You can do it
 
-  If you have assets that need to be bundled in some way so they need to run
-  through some loader that will minify or transform them in some way, it makes
-  sense to put them in the `assets` folder. On the other hand, if you have static
-  assets that don't need any sort of processing you can just put them directly
-  in the `public` folder and these are going to be copied into your build.
+1. Imperatively: You manually trigger the action.
+2. Declaratively: You can configure it (e.g. window docus) & when to trigger
+a re-fetch automatically with staleTime (see docs)
+
+React Query comes with a lot of other tools to help you with you server state
+management
+
+1. It _maintains loading and error states for every query to the server_ so
+that you don't have to do it manually.
+2. It _gives you tools to fetch data in pieces just when its needed by the user_
+for pagination of the data or an infinite scroll.
+3. You can _pre-fetch data if you anticipate that the user is going to need it_.
+So you can pre-fetch the data, put it in the cache, and then when the user does
+need the data your app can draw it from the cache and the user doesn't have to
+wait for you to contact the server.
+4. It _can also manage mutations or updates of data on the server_.
+5. Since queries are identified by a key, React Query can manage your requests
+so that if you load a page and several components on that page request the same
+data React Query can send the request only once and if another component requests
+the data while that original query is going out, then React Query can de-duplicate
+the requests.
+6. React Query can also manage you retries if you get an error from the server.
+7. It provides callbacks so you can take actions if your query is succesfull, if
+it returns an error, or you can provide a callback to take an action in either case.

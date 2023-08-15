@@ -45,7 +45,7 @@
       {
         "trailingComma": "all",
         "singleQuote": true,
-        "printWidth": 80,
+        "printWidth": 120,
         // below line only for windows users facing CLRF and eslint/prettier
         // error non windows users feel free to delete it
         "endOfLine": "auto"
@@ -54,6 +54,7 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-floating-promises": "warn",
     "@typescript-eslint/no-misused-promises": "warn",
     "no-debugger": "off",
@@ -77,7 +78,7 @@
     "no-console": "warn",
     "import/prefer-default-export": "off",
     "func-names": "off",
-    "max-len": ["error", { "code": 80 }],
+    "max-len": ["error", { "code": 120 }],
     "import/extensions": "off",
     "consistent-return": "off",
     "react/no-array-index-key": "off",

@@ -1,40 +1,23 @@
-import { useState } from 'react';
-
-import reactLogo from './assets/react.svg';
+import { Posts } from '@entities/posts';
+import { Core } from '@core';
 import './App.css';
+// import { InfinitePeople } from '@entities/swapi'
 
-function App(): JSX.Element {
-  const [count, setCount] = useState(0);
-
-  return (
+/**
+ * The main entry component of the Blog 'em Ipsum application.
+ *
+ * The `App` component serves as the entry point of the applicationt. It also
+ * wraps the entire application with the `TanStackProvider` component to provide
+ * necessary context and configuration for using the TanStack React Query library.
+ *
+ * @returns A React functional component that represents the main application
+ * layout.
+ */
+export const App = () => (
+  <Core.Component.TanStackProvider>
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button
-          type="button"
-          onClick={() => {
-            setCount((count) => count + 1);
-          }}
-        >
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Posts />
+      {/* <InfinitePeople /> */}
     </div>
-  );
-}
-
-export default App;
+  </Core.Component.TanStackProvider>
+);
